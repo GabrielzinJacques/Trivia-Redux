@@ -1,21 +1,19 @@
 import React from 'react';
-import './App.css';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import logo from './trivia.png';
+
 import store from './store';
 import Login from './pages/Login';
+// import Game from './pages/Game';
 
 export default function App() {
   return (
     <BrowserRouter>
       <Provider store={ store }>
-        <div className="App">
-          <header className="App-header">
-            <img src={ logo } className="App-logo" alt="logo" />
-            <Login />
-          </header>
-        </div>
+        <Switch>
+          <Route exact path="/" component={ Login } />
+          {/* <Route exact path="/game" component={ Game } /> */}
+        </Switch>
       </Provider>
     </BrowserRouter>
   );
