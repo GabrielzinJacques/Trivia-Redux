@@ -1,4 +1,4 @@
-import tokenObj from '../Services/Api';
+import tokenObj from '../Services/api';
 
 export const CHANGE_LOGIN = 'CHANGE_EMAIL';
 export const GET_TOKEN_SUCCESS = 'GET_TOKEN_SUCCESS';
@@ -16,7 +16,6 @@ export const getTokenSuccess = (payload) => ({
 export const getTokenThunk = () => async (dispatch) => {
   try {
     const results = await tokenObj();
-    console.log(results.token);
     dispatch(getTokenSuccess(results));
   } catch (error) {
     return error;
