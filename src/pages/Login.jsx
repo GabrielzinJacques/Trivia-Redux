@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { changeLogin, getTokenThunk } from '../actions';
 import logo from '../trivia.png';
 import '../App.css';
+// só para commit
 
 class Login extends Component {
   constructor() {
