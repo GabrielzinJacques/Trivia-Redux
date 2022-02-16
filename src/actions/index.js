@@ -1,7 +1,6 @@
-import tokenObj from '../Services/api';
-
 export const CHANGE_LOGIN = 'CHANGE_EMAIL';
 export const GET_TOKEN_SUCCESS = 'GET_TOKEN_SUCCESS';
+export const GET_TOKEN_NEW = 'GET_TOKEN_NEW';
 
 export const changeLogin = (payload) => ({
   type: CHANGE_LOGIN,
@@ -13,11 +12,7 @@ export const getTokenSuccess = (payload) => ({
   payload,
 });
 
-export const getTokenThunk = () => async (dispatch) => {
-  try {
-    const results = await tokenObj();
-    dispatch(getTokenSuccess(results));
-  } catch (error) {
-    return error;
-  }
-};
+export const getNewToken = (payload) => ({
+  type: GET_TOKEN_NEW,
+  payload,
+});
