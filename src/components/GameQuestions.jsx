@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { questionsObj, tokenObj } from '../Services/api';
 import { getTokenSuccess } from '../actions';
+import '../App.css';
 
 class GameQuestions extends Component {
   constructor() {
@@ -14,6 +15,19 @@ class GameQuestions extends Component {
 
   componentDidMount() {
     this.fetchQuestions();
+  }
+
+  handleClick = () => {
+    const getAlternativas = [...document.getElementsByClassName('alternativas')];
+    console.log(getAlternativas);
+
+    getAlternativas.forEach((alternativa) => {
+      if (alternativa.id === 'correctAnwser') {
+        alternativa.classList.add('correct');
+      } else {
+        alternativa.classList.add('incorrect');
+      }
+    });
   }
 
   fetchQuestions = async () => {
@@ -28,14 +42,17 @@ class GameQuestions extends Component {
     } else this.setState({ results: getQuestions.results });
   }
 
-  test2 = () => {
+  randomAnwsers = () => {
     const NUMBER = 0.5;
     const { results } = this.state;
     const correct = (
       <button
+        id="correctAnwser"
+        className="alternativas"
         key="correct"
         type="button"
         data-testid="correct-answer"
+        onClick={ this.handleClick }
       >
         {results[0].correct_answer}
 
@@ -43,9 +60,11 @@ class GameQuestions extends Component {
     );
     const incorrectAns = results[0].incorrect_answers.map((incorret, index) => (
       <button
+        className="alternativas"
         type="button"
         key={ incorret }
         data-testid={ `wrong-answer-${index}` }
+        onClick={ this.handleClick }
       >
         {incorret}
 
@@ -65,7 +84,7 @@ class GameQuestions extends Component {
             <h3 data-testid="question-category">{element.category}</h3>
             <p data-testid="question-text">{element.question}</p>
             <div data-testid="answer-options">
-              {this.test2()}
+              {this.randomAnwsers()}
             </div>
           </div>
         ))}
