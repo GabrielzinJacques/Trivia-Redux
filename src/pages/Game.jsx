@@ -8,12 +8,12 @@ export default class Game extends Component {
       <section>
         <Header />
         <GameQuestions />
-        <button
+        {/* <button
           type="button"
           onClick={ () => this.props.history.push('/feedBack') }
         >
           feedback
-        </button>
+        </button> */}
       </section>
     );
   }

@@ -30,8 +30,8 @@ class Header extends Component {
 const mapStateToProps = (state) => ({
   email: state.userReducer.email,
   userName: state.userReducer.userName,
-  score: state.header.score,
-  image: state.header.image,
+  score: state.player.score,
+  image: state.player.image,
 });
 
 const mapDispatchToProps = (dispatch) => ({
