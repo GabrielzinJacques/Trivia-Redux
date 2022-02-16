@@ -1,6 +1,6 @@
 import { GET_TOKEN_SUCCESS } from '../actions';
 
-const INITIAL_STATE = '';
+const INITIAL_STATE = 'invalid';
 
 const tokenReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {

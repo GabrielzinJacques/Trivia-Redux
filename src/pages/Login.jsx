@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { changeLogin, getTokenThunk } from '../actions';
+import { changeLogin, getTokenSuccess } from '../actions';
 import logo from '../trivia.png';
 import '../App.css';
-// só para commit
+import { tokenObj } from '../Services/api';
 
 class Login extends Component {
   constructor() {
@@ -20,12 +20,13 @@ class Login extends Component {
     this.setState({ [name]: value });
   }
 
-  handleClick = () => {
+  handleClick = async () => {
     const { email, userName } = this.state;
     const { setLogin, setToken, history } = this.props;
-    history.push('/game');
     setLogin({ email, userName });
-    setToken();
+    const results = await tokenObj();
+    setToken(results);
+    history.push('/game');
   }
 
   checkInput = () => {
@@ -95,7 +96,8 @@ Login.propTypes = {
 
 const mapDispatchToProps = (dispatch) => ({
   setLogin: ({ email, userName }) => dispatch(changeLogin({ email, userName })),
-  setToken: () => dispatch(getTokenThunk()),
+  // setToken: () => dispatch(getTokenThunk()),
+  setToken: (payload) => dispatch(getTokenSuccess(payload)),
 });
 
 export default connect(null, mapDispatchToProps)(Login);
