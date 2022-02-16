@@ -6,6 +6,6 @@ import headerReducer from './Header';
 const rootReducer = combineReducers({
   userReducer,
   token: tokenReducer,
-  header: headerReducer });
+  player: headerReducer });
 
 export default rootReducer;

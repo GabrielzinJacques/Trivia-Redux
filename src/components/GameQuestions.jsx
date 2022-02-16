@@ -69,7 +69,13 @@ class GameQuestions extends Component {
             </div>
           </div>
         ))}
-        <button type="button">Próxima Pergunta</button>
+        <button
+          data-testid="btn-next"
+          type="button"
+        >
+          Próxima Pergunta
+
+        </button>
       </section>
     );
   }
