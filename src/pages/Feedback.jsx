@@ -6,7 +6,7 @@ import Header from '../components/Header';
 class Feedback extends Component {
   render() {
     const { score } = this.props;
-    // const score2 = localStorage.getItem('score');
+    // const score2 = localStorage.getItem('score') ;
     const THREE = 3;
     const verify = score < THREE;
     return (
