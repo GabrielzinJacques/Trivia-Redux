@@ -10,11 +10,23 @@ class GameQuestions extends Component {
     super();
     this.state = {
       results: [],
+      counter: 30,
     };
   }
 
   componentDidMount() {
     this.fetchQuestions();
+    this.startCounter();
+  }
+
+  startCounter = () => {
+    const ONE_SECOND = 1000;
+
+    this.getInterval = setInterval(() => {
+      this.setState((prevState) => ({
+        counter: prevState.counter - 1,
+      }));
+    }, ONE_SECOND);
   }
 
   handleClick = () => {
@@ -28,6 +40,18 @@ class GameQuestions extends Component {
         alternativa.classList.add('incorrect');
       }
     });
+    clearInterval(this.getInterval);
+  }
+
+  disableAnswer = () => {
+    const { counter } = this.state;
+
+    if (counter <= 0) {
+      clearInterval(this.getInterval);
+      return true;
+    }
+
+    return false;
   }
 
   fetchQuestions = async () => {
@@ -53,6 +77,7 @@ class GameQuestions extends Component {
         type="button"
         data-testid="correct-answer"
         onClick={ this.handleClick }
+        disabled={ this.disableAnswer() }
       >
         {results[0].correct_answer}
 
@@ -65,6 +90,7 @@ class GameQuestions extends Component {
         key={ incorret }
         data-testid={ `wrong-answer-${index}` }
         onClick={ this.handleClick }
+        disabled={ this.disableAnswer() }
       >
         {incorret}
 
@@ -76,9 +102,10 @@ class GameQuestions extends Component {
   }
 
   render() {
-    const { results } = this.state;
+    const { results, counter } = this.state;
     return (
       <section>
+        <p>{ counter }</p>
         {results.length > 0 && [results[0]].map((element) => (
           <div key={ element.question }>
             <h3 data-testid="question-category">{element.category}</h3>
