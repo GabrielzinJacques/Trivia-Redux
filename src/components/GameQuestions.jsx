@@ -22,7 +22,7 @@ class GameQuestions extends Component {
   startCounter = () => {
     const ONE_SECOND = 1000;
 
-    this.getInterval = setInterval(() => {
+    this.interval = setInterval(() => {
       this.setState((prevState) => ({
         counter: prevState.counter - 1,
       }));
@@ -40,14 +40,14 @@ class GameQuestions extends Component {
         alternativa.classList.add('incorrect');
       }
     });
-    clearInterval(this.getInterval);
+    clearInterval(this.interval);
   }
 
   disableAnswer = () => {
     const { counter } = this.state;
 
     if (counter <= 0) {
-      clearInterval(this.getInterval);
+      clearInterval(this.interval);
       return true;
     }
 
