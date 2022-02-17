@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { questionsObj, tokenObj } from '../Services/api';
-import { getTokenSuccess } from '../actions';
+import { getScore, getTokenSuccess } from '../actions';
 import '../App.css';
 
 class GameQuestions extends Component {
@@ -45,7 +45,6 @@ class GameQuestions extends Component {
 
   disableAnswer = () => {
     clearInterval(this.interval);
-    console.log('chamou func');
     this.setState({ buttonDisabled: true });
   }
 
@@ -69,9 +68,14 @@ class GameQuestions extends Component {
     } else history.push('/feedback');
   }
 
-  handleClick = () => {
+  handleClick = ({ target }) => {
+    const { results, questionIndex } = this.state;
+    const { setScore } = this.props;
     const getAlternativas = [...document.getElementsByClassName('alternativas')];
     this.handleStateButton();
+    if (target.id === 'correctAnwser') {
+      setScore(this.sum(results[questionIndex].difficulty));
+    }
     getAlternativas.forEach((alternativa) => {
       if (alternativa.id === 'correctAnwser') {
         alternativa.classList.add('correct');
@@ -90,7 +94,6 @@ class GameQuestions extends Component {
       const results = await tokenObj();
       setToken(results);
       const newQuestions = await questionsObj(results.token);
-      // console.log(newQuestions.results);
       this.setState({ results: newQuestions.results });
       this.randomAnwsers();
     } else {
@@ -109,7 +112,20 @@ class GameQuestions extends Component {
 
     const answers = [...incorrectAns, correct];
     const randonAnswers = answers.sort(() => NUMBER - Math.random());
-    this.setState({ answers: randonAnswers, correct });
+    this.setState({ answers: randonAnswers,
+      correct,
+    });
+  }
+
+  sum = (difficulty) => {
+    const { counter } = this.state;
+    const PONTO = 10;
+    const points = {
+      easy: 1,
+      medium: 2,
+      hard: 3,
+    };
+    return PONTO + (counter * points[difficulty]);
   }
 
   render() {
@@ -121,7 +137,7 @@ class GameQuestions extends Component {
       questionIndex,
       enableNext,
     } = this.state;
-    // console.log(answers);
+
     return (
       <section>
         <p>{ counter }</p>
@@ -174,6 +190,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   setToken: (payload) => dispatch(getTokenSuccess(payload)),
+  setScore: (score) => dispatch(getScore(score)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameQuestions);
