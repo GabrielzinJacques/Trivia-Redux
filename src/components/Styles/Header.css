@@ -32,6 +32,8 @@ header {
 
 .score-box {
   background-color: #001b30;
+  border: 3px solid white;
+  border-left: none;
   color: white;
   display: flex;
   flex-direction: column;
@@ -48,8 +50,9 @@ header .divisor {
 }
 
 .user-infos img {
+  border: 3px solid white;
   border-radius: 50%;
   position: relative;
-  right: 20px;
+  right: 25px;
   width: 80px;
 }
