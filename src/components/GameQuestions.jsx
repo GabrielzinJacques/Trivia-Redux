@@ -14,6 +14,7 @@ class GameQuestions extends Component {
       correct: '',
       counter: 30,
       questionIndex: 0,
+      enableNext: false,
     };
   }
 
@@ -26,6 +27,10 @@ class GameQuestions extends Component {
     if (prevState.counter === 1) {
       this.disableAnswer();
     }
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   startCounter = () => {
@@ -44,8 +49,29 @@ class GameQuestions extends Component {
     this.setState({ buttonDisabled: true });
   }
 
+  handleStateButton = () => {
+    this.setState((prev) => ({ enableNext: !prev.enableNext }));
+  }
+
+  buttonNext = () => {
+    const { history } = this.props;
+    const { questionIndex } = this.state;
+    const MAX_QUESTION = 4;
+    this.setState({ counter: 30 });
+    if (questionIndex !== MAX_QUESTION) {
+      this.startCounter();
+      this.setState((prevState) => (
+        { questionIndex: prevState.questionIndex + 1 }
+      ), () => {
+        this.randomAnwsers();
+        this.handleStateButton();
+      });
+    } else history.push('/feedback');
+  }
+
   handleClick = () => {
     const getAlternativas = [...document.getElementsByClassName('alternativas')];
+    this.handleStateButton();
     getAlternativas.forEach((alternativa) => {
       if (alternativa.id === 'correctAnwser') {
         alternativa.classList.add('correct');
@@ -92,7 +118,9 @@ class GameQuestions extends Component {
       answers,
       buttonDisabled,
       correct,
-      questionIndex } = this.state;
+      questionIndex,
+      enableNext,
+    } = this.state;
     // console.log(answers);
     return (
       <section>
@@ -121,13 +149,16 @@ class GameQuestions extends Component {
             </div>
           </div>
         ))}
-        <button
-          data-testid="btn-next"
-          type="button"
-        >
-          Próxima Pergunta
+        { enableNext
+        && (
+          <button
+            onClick={ this.buttonNext }
+            data-testid="btn-next"
+            type="button"
+          >
+            Next
 
-        </button>
+          </button>)}
       </section>
     );
   }
