@@ -3,6 +3,8 @@ import md5 from 'crypto-js/md5';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getFeedBack } from '../actions';
+import './Styles/Header.css';
+import Logo from '../trivia.png';
 
 class Header extends Component {
   componentDidMount() {
@@ -15,13 +17,26 @@ class Header extends Component {
     const { userName, image, score } = this.props;
     return (
       <header>
-        <h2 data-testid="header-player-name">{userName}</h2>
-        <img
-          data-testid="header-profile-picture"
-          src={ `https://www.gravatar.com/avatar/${image}` }
-          alt="Foto do jogador"
-        />
-        <h2 data-testid="header-score">{score}</h2>
+        <div className="header-logo">
+          <img className="game-logo" src={ Logo } alt="trivia-logo" />
+        </div>
+        <div className="user-infos">
+          <div className="divisor" />
+          <div className="score-box">
+            <span data-testid="header-player-name">{`Player: ${userName}`}</span>
+            <span
+              data-testid="header-score"
+              className="header-score"
+            >
+              {`Pontuação Atual: ${score}`}
+            </span>
+          </div>
+          <img
+            data-testid="header-profile-picture"
+            src={ `https://www.gravatar.com/avatar/${image}` }
+            alt="Foto do jogador"
+          />
+        </div>
       </header>
     );
   }
