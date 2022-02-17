@@ -10,13 +10,22 @@ class GameQuestions extends Component {
     super();
     this.state = {
       results: [],
+      answers: [],
+      correct: '',
       counter: 30,
+      questionIndex: 0,
     };
   }
 
   componentDidMount() {
     this.fetchQuestions();
     this.startCounter();
+  }
+
+  componentDidUpdate(_prevProps, prevState) {
+    if (prevState.counter === 1) {
+      this.disableAnswer();
+    }
   }
 
   startCounter = () => {
@@ -29,10 +38,14 @@ class GameQuestions extends Component {
     }, ONE_SECOND);
   }
 
+  disableAnswer = () => {
+    clearInterval(this.interval);
+    console.log('chamou func');
+    this.setState({ buttonDisabled: true });
+  }
+
   handleClick = () => {
     const getAlternativas = [...document.getElementsByClassName('alternativas')];
-    console.log(getAlternativas);
-
     getAlternativas.forEach((alternativa) => {
       if (alternativa.id === 'correctAnwser') {
         alternativa.classList.add('correct');
@@ -43,17 +56,6 @@ class GameQuestions extends Component {
     clearInterval(this.interval);
   }
 
-  disableAnswer = () => {
-    const { counter } = this.state;
-
-    if (counter <= 0) {
-      clearInterval(this.interval);
-      return true;
-    }
-
-    return false;
-  }
-
   fetchQuestions = async () => {
     const RESPONSE = 3;
     const { token, setToken } = this.props;
@@ -62,56 +64,60 @@ class GameQuestions extends Component {
       const results = await tokenObj();
       setToken(results);
       const newQuestions = await questionsObj(results.token);
+      // console.log(newQuestions.results);
       this.setState({ results: newQuestions.results });
-    } else this.setState({ results: getQuestions.results });
+      this.randomAnwsers();
+    } else {
+      this.setState({ results: getQuestions.results });
+      this.randomAnwsers();
+    }
   }
 
   randomAnwsers = () => {
     const NUMBER = 0.5;
-    const { results } = this.state;
-    const correct = (
-      <button
-        id="correctAnwser"
-        className="alternativas"
-        key="correct"
-        type="button"
-        data-testid="correct-answer"
-        onClick={ this.handleClick }
-        disabled={ this.disableAnswer() }
-      >
-        {results[0].correct_answer}
+    const { results, questionIndex } = this.state;
+    const correct = results[questionIndex].correct_answer;
 
-      </button>
-    );
-    const incorrectAns = results[0].incorrect_answers.map((incorret, index) => (
-      <button
-        className="alternativas"
-        type="button"
-        key={ incorret }
-        data-testid={ `wrong-answer-${index}` }
-        onClick={ this.handleClick }
-        disabled={ this.disableAnswer() }
-      >
-        {incorret}
+    const incorrectAns = results[questionIndex]
+      .incorrect_answers.map((incorret) => incorret);
 
-      </button>
-    ));
     const answers = [...incorrectAns, correct];
     const randonAnswers = answers.sort(() => NUMBER - Math.random());
-    return randonAnswers;
+    this.setState({ answers: randonAnswers, correct });
   }
 
   render() {
-    const { results, counter } = this.state;
+    const { results,
+      counter,
+      answers,
+      buttonDisabled,
+      correct,
+      questionIndex } = this.state;
+    // console.log(answers);
     return (
       <section>
         <p>{ counter }</p>
-        {results.length > 0 && [results[0]].map((element) => (
+        {results.length > 0 && [results[questionIndex]].map((element) => (
           <div key={ element.question }>
             <h3 data-testid="question-category">{element.category}</h3>
             <p data-testid="question-text">{element.question}</p>
             <div data-testid="answer-options">
-              {this.randomAnwsers()}
+              {answers.map((buttonAnswer, index) => (
+                <button
+                  id={ buttonAnswer === correct ? 'correctAnwser' : 'incorrect' }
+                  className="alternativas"
+                  key={ buttonAnswer }
+                  type="button"
+                  data-testid={ buttonAnswer === correct ? 'correct-answer'
+                    : `wrong-answer-${index}` }
+                  onClick={ this.handleClick }
+                  disabled={ buttonDisabled }
+                >
+                  {buttonAnswer}
+
+                </button>
+              ))}
+
             </div>
           </div>
         ))}
