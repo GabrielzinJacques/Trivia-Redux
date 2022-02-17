@@ -4,16 +4,11 @@ import Header from '../components/Header';
 
 export default class Game extends Component {
   render() {
+    const { history } = this.props;
     return (
       <section>
         <Header />
-        <GameQuestions />
-        {/* <button
-          type="button"
-          onClick={ () => this.props.history.push('/feedBack') }
-        >
-          feedback
-        </button> */}
+        <GameQuestions history={ history } />
       </section>
     );
   }
