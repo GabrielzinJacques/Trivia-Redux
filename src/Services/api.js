@@ -17,5 +17,3 @@ export const questionsObj = async (token) => {
     return error;
   }
 };
-
-// 709471b0a5598650bc8105a0ec6d8b8aa33384efa247176db3dc4a431a56ea28
