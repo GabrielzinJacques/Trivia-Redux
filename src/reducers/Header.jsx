@@ -1,9 +1,10 @@
-import { GET_FEEDBACK, GET_SCORE } from '../actions';
+import { GET_FEEDBACK, GET_SCORE, RESET, SET_RANKING } from '../actions';
 
 const INITIAL_STATE = {
   image: '',
   score: 0,
   assertions: 0,
+  ranking: [],
 };
 
 const headerReducer = (state = INITIAL_STATE, action) => {
@@ -20,6 +21,18 @@ const headerReducer = (state = INITIAL_STATE, action) => {
       ...state,
       score: state.score + action.score,
       assertions: state.assertions + 1,
+    };
+  case SET_RANKING:
+    return {
+      ...state,
+      ranking: [...state.ranking, action.ranking],
+    };
+  case RESET:
+    return {
+      ...state,
+      image: '',
+      score: 0,
+      assertions: 0,
     };
   default:
     return state;
