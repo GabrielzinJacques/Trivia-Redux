@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { decode } from 'he';
 import { questionsObj, tokenObj } from '../Services/api';
 import { getScore, getTokenSuccess } from '../actions';
-import '../App.css';
+import './Styles/GameQuestions.css';
 
 class GameQuestions extends Component {
   constructor() {
@@ -139,42 +140,60 @@ class GameQuestions extends Component {
     } = this.state;
 
     return (
-      <section>
-        <p>{ counter }</p>
-        {results.length > 0 && [results[questionIndex]].map((element) => (
-          <div key={ element.question }>
-            <h3 data-testid="question-category">{element.category}</h3>
-            <p data-testid="question-text">{element.question}</p>
-            <div data-testid="answer-options">
-              {answers.map((buttonAnswer, index) => (
-                <button
-                  id={ buttonAnswer === correct ? 'correctAnwser' : 'incorrect' }
-                  className="alternativas"
-                  key={ buttonAnswer }
-                  type="button"
-                  data-testid={ buttonAnswer === correct ? 'correct-answer'
-                    : `wrong-answer-${index}` }
-                  onClick={ this.handleClick }
-                  disabled={ buttonDisabled }
-                >
-                  {buttonAnswer}
+      <section className="game-container">
+        <div className="game-content">
+          {results.length > 0 && [results[questionIndex]].map((element) => (
+            <div key={ element.question }>
+              <h3
+                data-testid="question-category"
+                className="question-category"
+              >
+                {`Category: ${element.category}`}
 
-                </button>
-              ))}
+              </h3>
+              <div className="questions-container">
+                <p data-testid="question-text">{decode(element.question)}</p>
+              </div>
+              <div
+                data-testid="answer-options"
+                className="answer-container"
+              >
+                {answers.map((buttonAnswer, index) => {
+                  const indexSum = index + 1;
+                  return (
+                    <button
+                      id={ buttonAnswer === correct ? 'correctAnwser' : 'incorrect' }
+                      className="alternativas answers-content"
+                      key={ buttonAnswer }
+                      type="button"
+                      data-testid={ buttonAnswer === correct ? 'correct-answer'
+                        : `wrong-answer-${index}` }
+                      onClick={ this.handleClick }
+                      disabled={ buttonDisabled }
+                    >
+                      {`${indexSum} - ${buttonAnswer}`}
 
+                    </button>
+                  );
+                })}
+                { enableNext
+                     && (
+                       <button
+                         onClick={ this.buttonNext }
+                         data-testid="btn-next"
+                         type="button"
+                         id="next-button"
+                       >
+                         Next
+                       </button>)}
+
+                <div className="timer-container">
+                  <p>{`Timer: ${counter}s`}</p>
+                </div>
+              </div>
             </div>
-          </div>
-        ))}
-        { enableNext
-        && (
-          <button
-            onClick={ this.buttonNext }
-            data-testid="btn-next"
-            type="button"
-          >
-            Next
-
-          </button>)}
+          ))}
+        </div>
       </section>
     );
   }

@@ -1,0 +1,99 @@
+* {
+    color: white;
+}
+/* Container Geral */
+.game-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background:url('https://p2.trrsf.com/image/fget/cf/1200/1200/filters:quality(85)/images.terra.com/2021/08/14/1233373318-programa-silvio-santos-pijama.jpg')
+  }
+
+  .game-content {
+    width: 50%;
+    height: 65vh;
+    background: rgb(40,114,63);
+    background: linear-gradient(180deg, rgba(40,114,63,1) 0%, rgba(46,162,82,1) 49%, rgba(38,194,87,1) 100%);    display: flex;
+    flex-direction: column;
+    font-size: large;
+    font-weight: 700;
+  }
+
+  /* Perguntas */
+
+  .question-category {
+      background-color: #2fad57;
+      padding: 12px;
+    text-align: center;
+    border-right: 1px solid #2fad57;
+    border-radius:0 18px 18px 0;
+    position: relative;
+    width: 20%;
+  }
+
+  .questions-container {
+      background-color: #2fad57;
+      padding: 12px;
+      border-right: 1px solid #2fad57;
+      border-radius:0 15px 15px 0;
+      position: relative;
+      width: 100%;
+  }
+
+  /* Respostas */  
+  .answer-container {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      margin-top: 14px;
+  }
+
+  .answer-container button {
+      width: 90%;
+      height:50px;
+      margin: 8px;
+      background-color: #4188ec;
+      color: white;
+      font-size: large;
+      font-weight: 700;
+      border-radius: 7px;
+  }
+  
+.correct {
+    border: 3px solid rgb(6, 240, 15);
+  }
+  
+  .incorrect {
+    border: 3px solid red;
+  }
+
+  /* Footer */
+  .game-footer{
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      align-items: center;
+      border: 1px solid black;
+      height: 100px;
+  }
+
+  .timer-container {
+      background-color: #2e8a4b;
+      padding: 2px;
+      text-align: center;
+      border-right: 1px solid #2e8a4b;
+      border-radius:18px 0 0 18px;
+      width: 15%;
+      align-self: flex-end;
+      margin-top: 15px;
+      font-weight: 700;
+      font-size: large;
+  }
+  
+  #next-button {
+      width: 20%;
+      background-color: #d69f38;
+  }
