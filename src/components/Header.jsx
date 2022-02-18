@@ -24,12 +24,14 @@ class Header extends Component {
           <div className="divisor" />
           <div className="score-box">
             <span data-testid="header-player-name">{`Player: ${userName}`}</span>
-            <span
-              data-testid="header-score"
-              className="header-score"
-            >
-              {`Pontuação Atual: ${score}`}
-            </span>
+            <h4 className="header-score">
+              Pontuação Total:
+              <span
+                data-testid="header-score"
+              >
+                {score}
+              </span>
+            </h4>
           </div>
           <img
             data-testid="header-profile-picture"
