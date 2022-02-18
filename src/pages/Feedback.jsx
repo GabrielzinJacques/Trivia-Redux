@@ -2,15 +2,18 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
+import { reset, setRanking } from '../actions';
 
 class Feedback extends Component {
   playAgain = () => {
-    const { history } = this.props;
+    const { history, resetScore } = this.props;
+    resetScore();
     history.push('/');
   };
 
   ranking = () => {
-    const { history } = this.props;
+    const { history, getRanking, userName, image, score } = this.props;
+    getRanking({ image, score, userName });
     history.push('/ranking');
   };
 
@@ -54,11 +57,19 @@ Feedback.propTypes = {
   assertions: PropTypes.number,
   score: PropTypes.number,
   history: PropTypes.objectOf(PropTypes.any),
+  resetScore: PropTypes.func,
 }.isRequired;
 
 const mapStateToProps = (state) => ({
   assertions: state.player.assertions,
   score: state.player.score,
+  image: state.player.image,
+  userName: state.userReducer.userName,
 });
 
-export default connect(mapStateToProps)(Feedback);
+const mapDispatchToProps = (dispatch) => ({
+  getRanking: (ranking) => dispatch(setRanking(ranking)),
+  resetScore: () => dispatch(reset()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Feedback);
