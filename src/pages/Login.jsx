@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { changeLogin, getTokenSuccess } from '../actions';
-import logo from '../trivia.png';
-import '../App.css';
+import Logo from '../trivia.png';
 import { tokenObj } from '../Services/api';
+import './Styles/Login.css';
 
 class Login extends Component {
   constructor() {
@@ -40,10 +40,10 @@ class Login extends Component {
   render() {
     const { email, userName } = this.state;
     return (
-      <div className="App">
-        <section className="App-header">
-          <img src={ logo } className="App-logo" alt="logo" />
-          <section>
+      <section className="login">
+        <div className="login-header">
+          <img src={ Logo } className="login-logo" alt="logo" />
+          <form>
             <label htmlFor="email">
               <input
                 name="email"
@@ -81,9 +81,9 @@ class Login extends Component {
               Configurações
             </button>
             <span data-testid="settings-title"> </span>
-          </section>
-        </section>
-      </div>
+          </form>
+        </div>
+      </section>
     );
   }
 }

@@ -1,58 +1,48 @@
 header {
   align-items: center;
-  background-color: #003c69;
+  background-color: var(--main-color-theme);
   display: flex;
   justify-content: space-between;
-}
-
-.header-logo {
-  display: flex;
-  justify-content: center;
-  width: 70%;
+  align-items: center;
+  height: 7.5rem;
+  border-bottom: 0.3125rem solid var(--darken-blue-theme-color);
 }
 
 .game-logo {
-  height: 80px;
-  margin-left: 384px;
-  width: 210px;
+  margin-left: var(--main-spacing-normal);
+  height: 5rem;
+  width: 13.125rem;
 }
 
 .user-infos {
   align-items: center;
-  background-color: #003c69;
   display: flex;
-  height: 120px;
-  justify-content: space-between;
-  width: 22%;
-}
-
-.header-score {
-  margin-top: 5px;
+  width: 30%;
 }
 
 .score-box {
-  background-color: #001b30;
-  border: 3px solid white;
-  border-left: none;
+  background-color: var(--darken-blue-theme-color);
+  border: var(--main-border-size) solid white;
   color: white;
   display: flex;
   flex-direction: column;
   font-weight: 700;
-  justify-content: center;
-  padding: 15px 0 10px 15px;
-  width: 300px;
+  padding: var(--main-spacing-normal) var(--main-spacing-small);
+  position: relative;
+  left: 5%;
+  width: 150%;
+  z-index: 0;
 }
 
-header .divisor {
-  background-color: #f0f000;
-  height: 120px;
-  width: 12px;
+.header-score {
+  margin-top: 0.3125rem;
+  margin-bottom: 0;
 }
 
 .user-infos img {
-  border: 3px solid white;
+  border: var(--main-border-size) solid white;
   border-radius: 50%;
-  position: relative;
-  right: 25px;
-  width: 80px;
+  margin-right: var(--main-spacing-normal);
+  width: 5rem;
+  z-index: 1;
 }

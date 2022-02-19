@@ -144,13 +144,14 @@ class GameQuestions extends Component {
         <div className="game-content">
           {results.length > 0 && [results[questionIndex]].map((element) => (
             <div key={ element.question }>
-              <h3
-                data-testid="question-category"
-                className="question-category"
-              >
-                {`Category: ${element.category}`}
-
-              </h3>
+              <div className="question-category">
+                <span>Category:</span>
+                <span
+                  data-testid="question-category"
+                >
+                  {`${element.category}`}
+                </span>
+              </div>
               <div className="questions-container">
                 <p data-testid="question-text">{decode(element.question)}</p>
               </div>
@@ -194,6 +195,7 @@ class GameQuestions extends Component {
             </div>
           ))}
         </div>
+        <div className="side-image" />
       </section>
     );
   }

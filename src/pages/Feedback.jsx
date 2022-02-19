@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import { reset, setRanking } from '../actions';
+import './Styles/Feedback.css';
 
 class Feedback extends Component {
   playAgain = () => {
@@ -22,33 +23,41 @@ class Feedback extends Component {
     console.log(history);
     const THREE = 3;
     const verify = assertions < THREE;
+    const win = 'happy-santos';
+    const lose = 'sad-santos';
     return (
-      <section>
+      <>
         <Header />
-        {verify ? <p data-testid="feedback-text">Could be better...</p>
-          : <p data-testid="feedback-text">Well Done!</p>}
-        <div>
-          {console.log(score)}
-          <h3 data-testid="feedback-total-score">{score}</h3>
-          <h3 data-testid="feedback-total-question">{assertions}</h3>
-        </div>
-        <button
-          onClick={ this.playAgain }
-          data-testid="btn-play-again"
-          type="button"
-        >
-          Jogar novamente
+        <section className={ verify ? lose : win }>
+          <div className="feedback-score">
+            {verify
+              ? <p data-testid="feedback-text" className="feedback">Could be better...</p>
+              : <p data-testid="feedback-text" className="feedback">Well Done!</p>}
+            <span data-testid="feedback-total-score">{`Pontuação Total: ${score}`}</span>
+            <span data-testid="feedback-total-question">
+              {`Total de Acertos: ${assertions}`}
+            </span>
+          </div>
+          <div className="feedback-buttons">
+            <button
+              onClick={ this.playAgain }
+              data-testid="btn-play-again"
+              type="button"
+            >
+              Jogar novamente
 
-        </button>
-        <button
-          onClick={ this.ranking }
-          data-testid="btn-ranking"
-          type="button"
-        >
-          Ranking
+            </button>
+            <button
+              onClick={ this.ranking }
+              data-testid="btn-ranking"
+              type="button"
+            >
+              Ranking
 
-        </button>
-      </section>
+            </button>
+          </div>
+        </section>
+      </>
     );
   }
 }

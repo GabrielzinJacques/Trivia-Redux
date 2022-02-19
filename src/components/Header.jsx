@@ -17,19 +17,16 @@ class Header extends Component {
     const { userName, image, score } = this.props;
     return (
       <header>
-        <div className="header-logo">
-          <img className="game-logo" src={ Logo } alt="trivia-logo" />
-        </div>
+        <img className="game-logo" src={ Logo } alt="trivia-logo" />
         <div className="user-infos">
           <div className="divisor" />
           <div className="score-box">
             <span data-testid="header-player-name">{`Player: ${userName}`}</span>
             <h4 className="header-score">
-              Pontuação Total:
               <span
                 data-testid="header-score"
               >
-                {score}
+                {`Pontuação Total: ${score}`}
               </span>
             </h4>
           </div>

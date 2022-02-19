@@ -1,0 +1,56 @@
+.happy-santos {
+  display: flex;
+  background: url('https://cdn.oantagonista.com/uploads/2021/08/Silvio-Santos-1.jpg');
+  background-size: cover;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.sad-santos {
+  display: flex;
+  background: url('https://agorarn.com.br/files/uploads/2022/01/Screenshot_412-840x560-1.jpg');
+  background-size: cover;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.feedback {
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.feedback-score {
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 5rem var(--main-spacing-normal);
+  color: white;
+}
+
+.feedback-score span {
+  font-weight: 700;
+}
+
+.feedback-buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+.feedback-buttons button {
+  padding: var(--main-spacing-large);
+  margin: var(--main-spacing-small);
+  background-color: var(--darken-blue-theme-color);
+  color: white;
+  border: none;
+  font-size: 1.02rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.feedback-buttons button:hover {
+  background-color: var(--main-color-theme);
+}
