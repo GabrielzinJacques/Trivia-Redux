@@ -1,8 +1,8 @@
 # Boas vindas ao repositório do projeto de Trivia!
 
-# Habilidades
+Neste projeto desenvolvemos um jogo de perguntas, onde o objetivo é acertar as respostas dentro de 30 segundos por rodada. Foi desenvolvido em grupo
 
-Nesse projeto, você será capaz de:
+# Habilidadesd
 
   - Criar um store Redux em aplicações React
 
